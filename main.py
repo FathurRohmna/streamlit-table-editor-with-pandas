@@ -43,6 +43,21 @@ def main():
     if st.session_state.success_message:
         st.success(st.session_state.success_message)
         st.session_state.success_message = None
+        
+    st.write("### Modify Existing Data")
+    if len(st.session_state.csv_ops.table_data) > 0:
+            row_options = [
+                f"Row {idx + 1}: {list(row.values())}"
+                for idx, row in enumerate(st.session_state.csv_ops.table_data)
+            ]
+            selected_index = st.selectbox(
+                "Select a row to modify", 
+                options=list(range(len(st.session_state.csv_ops.table_data))), 
+                format_func=lambda x: row_options[x], 
+                key="index_modify"
+            )
+
+            selected_row = st.session_state.csv_ops.table_data[selected_index]
 
 if __name__ == "__main__":
     main()
