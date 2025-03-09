@@ -2,6 +2,10 @@
 
 A simple web application for viewing and modifying CSV files with an intuitive interface.
 
+![Screenshot from 2025-03-09 19-51-39](https://github.com/user-attachments/assets/2be7caa3-5dbd-4b1d-84a5-82b6ea186560)
+![Screenshot from 2025-03-09 19-51-26](https://github.com/user-attachments/assets/b8404774-ae6d-4d69-8de0-c490fbb35a39)
+
+
 ## Features
 
 - **Upload CSV File**: Easily upload your existing CSV files to the application
