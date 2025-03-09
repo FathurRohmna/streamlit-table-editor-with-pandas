@@ -11,11 +11,22 @@ def main():
         st.session_state.success_message = None
     if "reset_form" not in st.session_state:
         st.session_state.reset_form = False
+    if "uploaded_file" not in st.session_state:
+        st.session_state.uploaded_file = None
 
-    uploaded_file = upload_file()
-    if uploaded_file is not None and not st.session_state.csv_ops.table_data:
-        file_content = uploaded_file.getvalue().decode("utf-8").splitlines()
-        st.session_state.csv_ops.load_csv(file_content)
+    if st.session_state.uploaded_file is None:
+        uploaded_file = upload_file()
+        if uploaded_file is not None:
+            st.session_state.uploaded_file = uploaded_file
+            file_content = uploaded_file.getvalue().decode("utf-8").splitlines()
+            st.session_state.csv_ops.load_csv(file_content)
+            st.rerun()
+    else:
+        st.write(f"Uploaded file: **{st.session_state.uploaded_file.name}**")
+        if st.button("Reset"):
+            for key in list(st.session_state.keys()):
+                del st.session_state[key]  # Clear all session state
+            st.rerun()
 
     if st.session_state.csv_ops.table_data:
         df = st.session_state.csv_ops.get_dataframe()
@@ -50,21 +61,20 @@ def main():
         st.success(st.session_state.success_message)
         st.session_state.success_message = None
         st.session_state.reset_form = False
-        
+
     st.write("### Modify Existing Data")
     if len(st.session_state.csv_ops.table_data) > 0:
-            row_options = [
-                f"Row {idx + 1}: {list(row.values())}"
-                for idx, row in enumerate(st.session_state.csv_ops.table_data)
-            ]
-            selected_index = st.selectbox(
-                "Select a row to modify", 
-                options=list(range(len(st.session_state.csv_ops.table_data))), 
-                format_func=lambda x: row_options[x], 
-                key="index_modify"
-            )
-
-            selected_row = st.session_state.csv_ops.table_data[selected_index]
+        row_options = [
+            f"Row {idx + 1}: {list(row.values())}"
+            for idx, row in enumerate(st.session_state.csv_ops.table_data)
+        ]
+        selected_index = st.selectbox(
+            "Select a row to modify", 
+            options=list(range(len(st.session_state.csv_ops.table_data))), 
+            format_func=lambda x: row_options[x], 
+            key="index_modify"
+        )
+        selected_row = st.session_state.csv_ops.table_data[selected_index]
 
 if __name__ == "__main__":
     main()
