@@ -21,4 +21,18 @@ class CSVOperations:
             return True, "Row added successfully!"
         else:
             return False, "Please fill all fields before adding."
+        
+    def update_row(self, index, updated_data):
+        if 0 <= index < len(self.table_data):
+            self.table_data[index] = updated_data
+            return True, "Row updated successfully!"
+        else:
+            return False, "Invalid row index."
+
+    def delete_row(self, index):
+        if 0 <= index < len(self.table_data):
+            self.table_data.pop(index)
+            return True, "Row deleted successfully!"
+        else:
+            return False, "Invalid row index."
     
