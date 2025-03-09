@@ -14,4 +14,11 @@ class CSVOperations:
 
     def get_dataframe(self):
         return pd.DataFrame(self.table_data)
+
+    def add_row(self, new_data):
+        if all(new_data.values()): 
+            self.table_data.append(new_data)
+            return True, "Row added successfully!"
+        else:
+            return False, "Please fill all fields before adding."
     
