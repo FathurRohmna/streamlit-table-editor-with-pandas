@@ -22,7 +22,7 @@ Follow these simple steps to get the application running on your local machine:
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/FathurRohmna/streamlit-table-editor-with-pandas.git
-   cd csv-file-editor
+   cd streamlit-table-editor-with-pandas
    ```
 
 2. **Install Dependencies**:
